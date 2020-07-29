@@ -105,8 +105,6 @@ const Grid = () => {
 								// MVP: cannot toggle grids while simulation running
 								if (!running) {
 									const newGrid = produce(grid, (gridCopy) => {
-										// will set to "on"
-										// gridCopy[Rindex][Cindex] = 1;
 										// will toggle between "on" and "off"
 										gridCopy[Rindex][Cindex] = grid[Rindex][Cindex] ? 0 : 1;
 									});
@@ -165,6 +163,7 @@ const Grid = () => {
 				<h3>Simulation Speed:</h3>
 				<button
 					onClick={() => {
+						setRunning(false);
 						setRate(900);
 					}}>
 					Half Speed
@@ -172,6 +171,7 @@ const Grid = () => {
 				<p>Current speed: {rate / 1000} seconds</p>
 				<button
 					onClick={() => {
+						setRunning(false);
 						setRate(300);
 					}}>
 					Double Speed
