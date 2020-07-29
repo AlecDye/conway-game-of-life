@@ -1,10 +1,6 @@
 import React, { useState, useCallback, useRef } from "react";
 import produce from "immer";
 
-// Row / Column sizes
-const numRows = 25;
-const numCols = 25;
-
 // Array of possible operations for neighbors (8)
 const operations = [
 	[0, 1],
@@ -17,20 +13,29 @@ const operations = [
 	[-1, 0],
 ];
 
-// Resets grid to empty
-const resetGrid = () => {
-	const rows = [];
-	// loop to create grid's rows
-	for (let i = 0; i < numRows; i++) {
-		// populate each row with a column of 0
-		rows.push(Array.from(Array(numCols), () => 0));
-	}
-
-	return rows;
-};
-
 // Grid (or grid cell)
 const Grid = () => {
+	// Row / Column sizes
+	// const numRows = 25;
+	// const numCols = 25;
+
+	const [numRows, setNumRows] = useState(25);
+	const [numCols, setNumCols] = useState(25);
+
+	const [size, setSize] = useState("small");
+
+	// Resets grid to empty
+	const resetGrid = () => {
+		const rows = [];
+		// loop to create grid's rows
+		for (let i = 0; i < numRows; i++) {
+			// populate each row with a column of 0
+			rows.push(Array.from(Array(numCols), () => 0));
+		}
+
+		return rows;
+	};
+
 	// Initializes grid state to empty grid
 	const [grid, setGrid] = useState(() => {
 		return resetGrid();
@@ -38,6 +43,8 @@ const Grid = () => {
 
 	// Initializing state for simulation running
 	const [running, setRunning] = useState(false);
+
+	const [counter, setCounter] = useState(0);
 
 	// setTimeout state
 	const [rate, setRate] = useState(300);
@@ -82,6 +89,7 @@ const Grid = () => {
 				}
 			});
 		});
+		setCounter((counter) => counter + 1);
 		// time that simulation refreshes
 		setTimeout(runSimulation, rate);
 	}, []);
@@ -146,11 +154,23 @@ const Grid = () => {
 			{/* Reset */}
 			<button
 				onClick={() => {
-					setRunning(!running);
+					setRunning(false);
 					setGrid(resetGrid());
 				}}>
 				Reset
 			</button>
+			<div>
+				<h3>Simulation Speed:</h3>
+				<button
+					onClick={() => {
+						setRate(rate + 700);
+						// setRunning(false);
+						// setGrid(resetGrid());
+					}}>
+					Slow
+				</button>
+				<h2>Generation: {counter}</h2>
+			</div>
 		</>
 	);
 };
