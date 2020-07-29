@@ -143,6 +143,8 @@ const Grid = () => {
 					}
 
 					setGrid(rows);
+					setRunning(false);
+					setCounter(0);
 				}}>
 				Random
 			</button>
@@ -159,17 +161,18 @@ const Grid = () => {
 				<h3>Simulation Speed:</h3>
 				<button
 					onClick={() => {
-						setRate(2000);
+						setRate(1000);
 						console.log(rate);
 					}}>
-					Slow
+					Half Speed
 				</button>
+				<p>Current speed: {rate / 1000} seconds</p>
 				<button
 					onClick={() => {
-						setRate(200);
+						setRate(500);
 						console.log(rate);
 					}}>
-					Fast
+					Double Speed
 				</button>
 				<h2>Generation: {counter}</h2>
 			</div>
