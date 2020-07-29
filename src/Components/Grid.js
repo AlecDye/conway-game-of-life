@@ -1,6 +1,10 @@
 import React, { useState, useCallback, useRef } from "react";
 import produce from "immer";
 
+// Row / Column sizes
+const numRows = 25;
+const numCols = 25;
+
 // Array of possible operations for neighbors (8)
 const operations = [
 	[0, 1],
@@ -15,15 +19,6 @@ const operations = [
 
 // Grid (or grid cell)
 const Grid = () => {
-	// Row / Column sizes
-	// const numRows = 25;
-	// const numCols = 25;
-
-	const [numRows, setNumRows] = useState(25);
-	const [numCols, setNumCols] = useState(25);
-
-	const [size, setSize] = useState("small");
-
 	// Resets grid to empty
 	const resetGrid = () => {
 		const rows = [];
@@ -92,7 +87,7 @@ const Grid = () => {
 		setCounter((counter) => counter + 1);
 		// time that simulation refreshes
 		setTimeout(runSimulation, rate);
-	}, []);
+	}, [rate]);
 
 	return (
 		<>
@@ -156,6 +151,7 @@ const Grid = () => {
 				onClick={() => {
 					setRunning(false);
 					setGrid(resetGrid());
+					setCounter(0);
 				}}>
 				Reset
 			</button>
@@ -163,11 +159,17 @@ const Grid = () => {
 				<h3>Simulation Speed:</h3>
 				<button
 					onClick={() => {
-						setRate(rate + 700);
-						// setRunning(false);
-						// setGrid(resetGrid());
+						setRate(2000);
+						console.log(rate);
 					}}>
 					Slow
+				</button>
+				<button
+					onClick={() => {
+						setRate(200);
+						console.log(rate);
+					}}>
+					Fast
 				</button>
 				<h2>Generation: {counter}</h2>
 			</div>
