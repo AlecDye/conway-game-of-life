@@ -17,6 +17,9 @@ const operations = [
 	[-1, 0],
 ];
 
+// color array used to display alive grid cells
+const colors = ["#f97b61"];
+
 // Grid (or grid cell)
 const Grid = () => {
 	// Resets grid to empty
@@ -39,10 +42,11 @@ const Grid = () => {
 	// Initializing state for simulation running
 	const [running, setRunning] = useState(false);
 
+	// State for generation (how many updates per seed)
 	const [counter, setCounter] = useState(0);
 
 	// setTimeout state
-	const [rate, setRate] = useState(300);
+	const [rate, setRate] = useState(600);
 
 	// useRef will store the current state of "running"
 	const runningRef = useRef();
@@ -113,7 +117,7 @@ const Grid = () => {
 							style={{
 								width: 20,
 								height: 20,
-								backgroundColor: grid[Rindex][Cindex] ? "#f97b61" : undefined,
+								backgroundColor: grid[Rindex][Cindex] ? colors[0] : undefined,
 								border: "dashed 1px #ababab",
 							}}
 						/>
@@ -161,16 +165,14 @@ const Grid = () => {
 				<h3>Simulation Speed:</h3>
 				<button
 					onClick={() => {
-						setRate(1000);
-						console.log(rate);
+						setRate(900);
 					}}>
 					Half Speed
 				</button>
 				<p>Current speed: {rate / 1000} seconds</p>
 				<button
 					onClick={() => {
-						setRate(500);
-						console.log(rate);
+						setRate(300);
 					}}>
 					Double Speed
 				</button>
