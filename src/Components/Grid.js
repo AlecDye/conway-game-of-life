@@ -1,6 +1,9 @@
 import React, { useState, useCallback, useRef } from "react";
 import produce from "immer";
 import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 // Row / Column sizes
 const numRows = 25;
@@ -124,7 +127,7 @@ const Grid = () => {
 				)}
 			</div>
 			{/* Start / Stop */}
-			<button
+			<Button
 				onClick={() => {
 					setRunning(!running);
 					if (!running) {
@@ -134,9 +137,9 @@ const Grid = () => {
 					}
 				}}>
 				{running ? "Stop" : "Start"}
-			</button>
+			</Button>
 			{/* Random generator */}
-			<button
+			<Button
 				onClick={() => {
 					const rows = [];
 					// loop to create grid's rows
@@ -150,53 +153,64 @@ const Grid = () => {
 					setCounter(0);
 				}}>
 				Random
-			</button>
+			</Button>
 			{/* Reset */}
-			<button
+			<Button
 				onClick={() => {
 					setRunning(false);
 					setGrid(resetGrid());
 					setCounter(0);
 				}}>
 				Reset
-			</button>
-			<div>
-				<h3>Simulation Speed:</h3>
-				<button
-					onClick={() => {
-						setRunning(false);
-						setRate(900);
-					}}>
-					Half Speed
-				</button>
-				<p>Rate of advance: {rate / 1000} seconds</p>
-				<button
-					onClick={() => {
-						setRunning(false);
-						setRate(300);
-					}}>
-					Double Speed
-				</button>
-				<h2>Generation: {counter}</h2>
-			</div>
-			<Button
-				onClick={() => {
-					setGridColor("#f97b61");
-				}}>
-				Salmon
 			</Button>
-			<Button
-				onClick={() => {
-					setGridColor("#3eb5f0");
-				}}>
-				Sky Blue
-			</Button>
-			<Button
-				onClick={() => {
-					setGridColor("#f03ec6");
-				}}>
-				Neon Pink
-			</Button>
+			<Container>
+				<Row>
+					<Col>
+						<div>
+							<h3>Simulation Speed:</h3>
+							<Button
+								onClick={() => {
+									setRunning(false);
+									setRate(900);
+								}}>
+								Half Speed
+							</Button>
+							<p>Rate of advance: {rate / 1000} seconds</p>
+							<Button
+								onClick={() => {
+									setRunning(false);
+									setRate(300);
+								}}>
+								Double Speed
+							</Button>
+						</div>
+					</Col>
+					<Col>
+						<h2>Generation: {counter}</h2>
+						<div>
+							<h2>Color Select: </h2>
+							<Button
+								onClick={() => {
+									setGridColor("#f97b61");
+								}}>
+								Salmon
+							</Button>
+							<Button
+								onClick={() => {
+									setGridColor("#3eb5f0");
+								}}>
+								Sky Blue
+							</Button>
+							<Button
+								onClick={() => {
+									setGridColor("#f03ec6");
+								}}>
+								Neon Pink
+							</Button>
+						</div>
+					</Col>
+				</Row>
+			</Container>
 		</>
 	);
 };
