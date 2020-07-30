@@ -169,7 +169,7 @@ const Grid = () => {
 					}}>
 					Half Speed
 				</button>
-				<p>Current speed: {rate / 1000} seconds</p>
+				<p>Rate of advance: {rate / 1000} seconds</p>
 				<button
 					onClick={() => {
 						setRunning(false);
