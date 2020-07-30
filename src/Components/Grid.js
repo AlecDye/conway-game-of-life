@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useRef } from "react";
 import produce from "immer";
+import Button from "react-bootstrap/Button";
 
 // Row / Column sizes
 const numRows = 25;
@@ -16,9 +17,6 @@ const operations = [
 	[1, 0],
 	[-1, 0],
 ];
-
-// color array used to display alive grid cells
-const colors = ["#f97b61"];
 
 // Grid (or grid cell)
 const Grid = () => {
@@ -38,6 +36,9 @@ const Grid = () => {
 	const [grid, setGrid] = useState(() => {
 		return resetGrid();
 	});
+
+	// Grid cell color state
+	const [gridColor, setGridColor] = useState("#f97b61");
 
 	// Initializing state for simulation running
 	const [running, setRunning] = useState(false);
@@ -105,8 +106,6 @@ const Grid = () => {
 								// MVP: cannot toggle grids while simulation running
 								if (!running) {
 									const newGrid = produce(grid, (gridCopy) => {
-										// will set to "on"
-										// gridCopy[Rindex][Cindex] = 1;
 										// will toggle between "on" and "off"
 										gridCopy[Rindex][Cindex] = grid[Rindex][Cindex] ? 0 : 1;
 									});
@@ -117,7 +116,7 @@ const Grid = () => {
 							style={{
 								width: 20,
 								height: 20,
-								backgroundColor: grid[Rindex][Cindex] ? colors[0] : undefined,
+								backgroundColor: grid[Rindex][Cindex] ? gridColor : undefined,
 								border: "dashed 1px #ababab",
 							}}
 						/>
@@ -165,19 +164,39 @@ const Grid = () => {
 				<h3>Simulation Speed:</h3>
 				<button
 					onClick={() => {
+						setRunning(false);
 						setRate(900);
 					}}>
 					Half Speed
 				</button>
-				<p>Current speed: {rate / 1000} seconds</p>
+				<p>Rate of advance: {rate / 1000} seconds</p>
 				<button
 					onClick={() => {
+						setRunning(false);
 						setRate(300);
 					}}>
 					Double Speed
 				</button>
 				<h2>Generation: {counter}</h2>
 			</div>
+			<Button
+				onClick={() => {
+					setGridColor("#f97b61");
+				}}>
+				Salmon
+			</Button>
+			<Button
+				onClick={() => {
+					setGridColor("#3eb5f0");
+				}}>
+				Sky Blue
+			</Button>
+			<Button
+				onClick={() => {
+					setGridColor("#f03ec6");
+				}}>
+				Neon Pink
+			</Button>
 		</>
 	);
 };
